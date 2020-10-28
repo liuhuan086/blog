@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, {useState} from 'react'
 import {Row, Col, List, Icon} from "antd";
 import Header from "../components/Header";
+import Author from "../components/Author";
 import '../static/style/pages/index.css'
 
 const Home = () => {
@@ -29,7 +30,7 @@ const Home = () => {
     return (
         <div>
             <Head>
-                <title>List</title>
+                <title>Home</title>
             </Head>
 
             <Header/>
@@ -60,7 +61,7 @@ const Home = () => {
                 </Col>
 
                 <Col className='comm-right' xs={0} sm={0} md={7} lg={5} xl={4}>
-                    右侧
+                    <Author/>
                 </Col>
 
             </Row>
