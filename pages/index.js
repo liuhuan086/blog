@@ -3,9 +3,10 @@ import React, {useState} from 'react'
 import {Row, Col, List} from "antd";
 import Header from "../components/Header";
 import Author from "../components/Author";
+import Advert from "../components/Ad";
+import Footer from "../components/Footer";
 import '../static/style/pages/index.css'
 import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
-import Advert from "../components/Ad";
 
 const Home = () => {
     const [myList, setMyList] = useState(
@@ -65,8 +66,10 @@ const Home = () => {
                     <Author/>
                     <Advert/>
                 </Col>
-
             </Row>
+
+            <Footer/>
+
         </div>
     )
 }
