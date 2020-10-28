@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import React, {useState} from 'react'
-import {Row, Col, List, Icon} from "antd";
+import {Row, Col, List} from "antd";
 import Header from "../components/Header";
 import Author from "../components/Author";
 import '../static/style/pages/index.css'
+import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import Advert from "../components/Ad";
 
 const Home = () => {
     const [myList, setMyList] = useState(
@@ -49,10 +51,9 @@ const Home = () => {
                             <List.Item>
                                 <div className='list-title'>{item.title}</div>
                                 <div className='list-icon'>
-                                    <span><Icon type='calender'/> 2020.10.28</span>
-                                    <span><Icon type='folder'/> 视频教程</span>
-                                    <span><Icon type='fire'/> 666人</span>
-
+                                    <span><FieldTimeOutlined/>2020-10-28</span>
+                                    <span>< VideoCameraOutlined/>视频教程</span>
+                                    <span><FireOutlined/>666</span>
                                 </div>
                                 <div className='list--context'>{item.context}</div>
                             </List.Item>
@@ -62,6 +63,7 @@ const Home = () => {
 
                 <Col className='comm-right' xs={0} sm={0} md={7} lg={5} xl={4}>
                     <Author/>
+                    <Advert/>
                 </Col>
 
             </Row>
@@ -70,3 +72,4 @@ const Home = () => {
 }
 
 export default Home
+

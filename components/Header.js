@@ -1,8 +1,6 @@
 import React from 'react'
 import '../static/style/components/header.css'
-// import Icon from "@ant-design/icons/es/components/AntdIcon";
-// import Icon from "@ant-design/icons";
-import Icon from "antd/lib/icon";
+import {HomeOutlined, SmileOutlined, YoutubeOutlined} from "@ant-design/icons";
 import {Row, Col, Menu} from "antd";
 
 
@@ -18,17 +16,17 @@ const Header = () => (
 
                 <Menu mode="horizontal">
                     <Menu.Item key="home">
-                        <Icon type="home"/>
+                        <HomeOutlined/>
                         首页
                     </Menu.Item>
 
                     <Menu.Item key="video">
-                        <Icon type="youtube"/>
+                        <YoutubeOutlined/>
                         视频
                     </Menu.Item>
 
                     <Menu.Item key="life">
-                        <Icon type="smile"/>
+                        <SmileOutlined/>
                         生活
                     </Menu.Item>
                 </Menu>
