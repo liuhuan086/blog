@@ -9,7 +9,7 @@ import {Row, Col, Menu} from "antd";
 const Header = () => (
     <div className="header">
         <Row type="flex" justify="center">
-            <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+            <Col xs={24} sm={24} md={10} lg={15} xl={12}>
                 <span className="header-logo">好好学习</span>
                 <span className="header-txt">当上CTO，迎娶小宝贝儿，走向人生巅峰</span>
             </Col>
