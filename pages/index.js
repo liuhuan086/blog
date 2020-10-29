@@ -66,7 +66,7 @@ Home.getInitialProps = async () => {
     const promise = new Promise((resolve => {
         axios('http://127.0.0.1:7001/default/getArticleList').then(
             (res) => {
-                console.log("-------", res.data)
+                // console.log("-------", res.data)
                 resolve(res.data)
             }
         )

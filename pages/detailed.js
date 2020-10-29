@@ -6,17 +6,43 @@ import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Ad";
 import Footer from "../components/Footer";
-import ReactMarkdown from 'react-markdown'
 import MarkNav from 'markdown-navbar'
 import 'markdown-navbar/dist/navbar.css'
 import '../static/style/pages/detailed.css'
 import axios from 'axios'
 
-const Detailed = () => {
-    let markdown = '# P01:课程介绍和环境搭建\n' +
-        '# p07:Vue3.0基础知识讲解\n' +
-        '``` var a=11; ```'
+import marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
+import {error} from "next/dist/build/output/log";
 
+
+const Detailed = (props) => {
+
+    // 使用marked必须要要用的
+    const renderer = new marked.Renderer()
+    // 所有设置的属性都在这里配置
+    marked.setOptions({
+        renderer: renderer,
+        // 样式和markdown类似
+        gfm: true,
+        // 容错机制，如果markdown格式不正确，是否渲染, false即使错误也渲染
+        pedantic: false,
+        // 是否忽略html标签，false会渲染
+        sanitize: false,
+        // 允许我们输出表格样式是GitHub样式
+        tables: true,
+        //是否支持GitHub换行符
+        breaks: false,
+        // 自动渲染劣列表
+        smartLists: true,
+        // 代码高亮显示
+        highlight: function (code) {
+            return hljs.highlightAuto(code).value
+        }
+    })
+
+    let html = marked(props.article_content)
 
     return (
         <div>
@@ -30,7 +56,7 @@ const Detailed = () => {
                         <div className='bread-div'>
                             <Breadcrumb>
                                 <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-                                <Breadcrumb.Item><a href="/list">视频列表</a></Breadcrumb.Item>
+                                <Breadcrumb.Item><a href="/">视频列表</a></Breadcrumb.Item>
                                 <Breadcrumb.Item><a href="/">文章名</a></Breadcrumb.Item>
                             </Breadcrumb>
                         </div>
@@ -42,12 +68,9 @@ const Detailed = () => {
                             <span><FolderOpenOutlined/>视频教程</span>
                             <span><ReadOutlined/>666人</span>
                         </div>
-                        <div className='detailed-content'>
-                            <ReactMarkdown
-                                source={markdown}
-                                // 不对HTML标签进行转换
-                                escapeHtml={false}
-                            />
+                        <div className='detailed-content'
+                        dangerouslySetInnerHTML={{__html:html}}
+                        >
                         </div>
                     </div>
                 </Col>
@@ -57,9 +80,10 @@ const Detailed = () => {
                     <Affix offsetTop={5}>
                         <div className='detailed-nav comm-box'>
                             <div className='nav-title'>文章目录</div>
+
                             <MarkNav
                                 className='article-menu'
-                                source={markdown}
+                                source={html}
                                 // headingTopOffer
                                 // 是否有编号
                                 ordered={false}
@@ -84,7 +108,7 @@ Detailed.getInitialProps = async (context) => {
     const promise = new Promise((resolve => {
         axios('http://127.0.0.1:7001/default/getArticleById/' + id).then(
             (res => {
-                console.log(res.data.data[0])
+                resolve(res.data.data[0])
             })
         )
     }))
