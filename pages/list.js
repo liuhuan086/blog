@@ -42,8 +42,8 @@ const MyList = () => {
                 <Col className='comm-left' xs={24} sm={24} md={16} lg={18} xl={14}>
                     <div className='bread-div'>
                         <Breadcrumb>
-                            <Breadcrumb.Item><a href="/"/>首页</Breadcrumb.Item>
-                            <Breadcrumb.Item><a href="/"/>视频</Breadcrumb.Item>
+                            <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
+                            <Breadcrumb.Item><a href="/detailed">视频</a></Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
                     <List
