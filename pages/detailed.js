@@ -14,13 +14,19 @@ import axios from 'axios'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
-import {error} from "next/dist/build/output/log";
-
+import Tocify from "../components/tocify.tsx";
 
 const Detailed = (props) => {
 
+    const tocify = new Tocify()
+
     // 使用marked必须要要用的
     const renderer = new marked.Renderer()
+
+    renderer.heading = function(text, level, raw){
+        const anchor = tocify.add(text, level)
+        return `<a id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`
+    }
     // 所有设置的属性都在这里配置
     marked.setOptions({
         renderer: renderer,
@@ -80,7 +86,7 @@ const Detailed = (props) => {
                     <Affix offsetTop={5}>
                         <div className='detailed-nav comm-box'>
                             <div className='nav-title'>文章目录</div>
-
+                            {tocify && tocify.render()}
                             <MarkNav
                                 className='article-menu'
                                 source={html}
