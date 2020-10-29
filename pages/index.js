@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, {useState} from 'react'
 import {Row, Col, List} from "antd";
+import axios from 'axios'
 import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Ad";
@@ -8,27 +9,8 @@ import Footer from "../components/Footer";
 import '../static/style/pages/index.css'
 import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
 
-const Home = () => {
-    const [myList, setMyList] = useState(
-        [
-            {
-                title: 'python从入门到放弃',
-                context: 'python学习笔记.........................................'
-            },
-            {
-                title: 'golang，从内存泄漏到死锁',
-                context: 'golang学习笔记..........................................'
-            },
-            {
-                title: '从高可用集群到宕机',
-                context: 'k8s学习笔记..........................................'
-            },
-            {
-                title: '从宕机到被脱库',
-                context: '网络安全学习笔记..........................................'
-            },
-        ]
-    )
+const Home = (list) => {
+    const [myList, setMyList] = useState(list.data )
 
     return (
         <div>
@@ -52,11 +34,11 @@ const Home = () => {
                             <List.Item>
                                 <div className='list-title'>{item.title}</div>
                                 <div className='list-icon'>
-                                    <span><FieldTimeOutlined/>2020-10-28</span>
-                                    <span>< VideoCameraOutlined/>视频教程</span>
-                                    <span><FireOutlined/>666</span>
+                                    <span><FieldTimeOutlined/>{item.add_time}</span>
+                                    <span>< VideoCameraOutlined/>{item.typeName}</span>
+                                    <span><FireOutlined/>{item.view_count}</span>
                                 </div>
-                                <div className='list--context'>{item.context}</div>
+                                <div className='list--context'>{item.introduce}</div>
                             </List.Item>
                         )}
                     />
@@ -72,6 +54,18 @@ const Home = () => {
 
         </div>
     )
+}
+
+Home.getInitialProps = async () => {
+    const promise = new Promise((resolve => {
+        axios('http://127.0.0.1:7001/default/getArticleList').then(
+            (res) => {
+                console.log("-------", res.data)
+                resolve(res.data)
+            }
+        )
+    }))
+    return await promise
 }
 
 export default Home
