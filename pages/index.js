@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, {useState} from 'react'
 import {Row, Col, List} from "antd";
+import Link from 'next/link'
 import axios from 'axios'
 import Header from "../components/Header";
 import Author from "../components/Author";
@@ -10,7 +11,7 @@ import '../static/style/pages/index.css'
 import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
 
 const Home = (list) => {
-    const [myList, setMyList] = useState(list.data )
+    const [myList, setMyList] = useState(list.data)
 
     return (
         <div>
@@ -32,7 +33,12 @@ const Home = (list) => {
                         dataSource={myList}
                         renderItem={item => (
                             <List.Item>
-                                <div className='list-title'>{item.title}</div>
+                                <div className='list-title'>
+                                    <Link href={{pathname: '/detailed', query: {id: item.id}}}>
+                                        <a>{item.title}</a>
+                                    </Link>
+                                </div>
+
                                 <div className='list-icon'>
                                     <span><FieldTimeOutlined/>{item.add_time}</span>
                                     <span>< VideoCameraOutlined/>{item.typeName}</span>
