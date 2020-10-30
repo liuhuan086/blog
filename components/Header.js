@@ -16,7 +16,7 @@ const Header = () => {
         const fetchData = async () => {
             const result = await axios(servicePath.getTypeInfo).then(
                 (res) => {
-                    setNavArray(res.data.data)
+                    // setNavArray(res.data.data)
                     return res.data.data
                 }
             )

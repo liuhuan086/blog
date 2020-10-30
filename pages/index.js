@@ -10,10 +10,35 @@ import Footer from "../components/Footer";
 import '../static/style/pages/index.css'
 import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import servicePath from "../config/apiUrl";
+import marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
+
 
 const Home = (list) => {
     const [myList, setMyList] = useState(list.data)
+    const renderer = new marked.Renderer()
 
+    // 所有设置的属性都在这里配置
+    marked.setOptions({
+        renderer: renderer,
+        // 样式和markdown类似
+        gfm: true,
+        // 容错机制，如果markdown格式不正确，是否渲染, false即使错误也渲染
+        pedantic: false,
+        // 是否忽略html标签，false会渲染
+        sanitize: false,
+        // 允许我们输出表格样式是GitHub样式
+        tables: true,
+        //是否支持GitHub换行符
+        breaks: false,
+        // 自动渲染劣列表
+        smartLists: true,
+        // 代码高亮显示
+        highlight: function (code) {
+            return hljs.highlightAuto(code).value
+        }
+    })
     return (
         <div>
             <Head>
@@ -45,7 +70,9 @@ const Home = (list) => {
                                     <span>< VideoCameraOutlined/>{item.typeName}</span>
                                     <span><FireOutlined/>{item.view_count}</span>
                                 </div>
-                                <div className='list--context'>{item.introduce}</div>
+                                <div className='list--context' dangerouslySetInnerHTML={{__html: item.introduce}}>
+
+                                </div>
                             </List.Item>
                         )}
                     />
