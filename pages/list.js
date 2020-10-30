@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import React, {useState} from 'react'
-import {Row, Col, List, Breadcrumb} from "antd";
+import {Icon, Row, Col, List, Breadcrumb} from "antd";
 import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Ad";
 import Footer from "../components/Footer";
-import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
+// import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
 
-const MyList = () => {
+const Home = () => {
     const [myList, setMyList] = useState(
         [
             {
@@ -43,7 +43,7 @@ const MyList = () => {
                     <div className='bread-div'>
                         <Breadcrumb>
                             <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-                            <Breadcrumb.Item><a href="/detailed">视频</a></Breadcrumb.Item>
+                            <Breadcrumb.Item><a href="/">视频</a></Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
                     <List
@@ -57,9 +57,9 @@ const MyList = () => {
                             <List.Item>
                                 <div className='list-title'>{item.title}</div>
                                 <div className='list-icon'>
-                                    <span><FieldTimeOutlined/>2020-10-28</span>
-                                    <span>< VideoCameraOutlined/>视频教程</span>
-                                    <span><FireOutlined/>666</span>
+                                    <span><Icon type="calendar"/> 2020-10-28</span>
+                                    <span><Icon type="folder"/> 视频教程</span>
+                                    <span><Icon type="fire"/> 5498人</span>
                                 </div>
                                 <div className='list--context'>{item.context}</div>
                             </List.Item>
@@ -79,5 +79,5 @@ const MyList = () => {
     )
 }
 
-export default MyList
+export default Home
 
