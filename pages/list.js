@@ -1,33 +1,20 @@
 import Head from 'next/head'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Icon, Row, Col, List, Breadcrumb} from "antd";
 import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Ad";
 import Footer from "../components/Footer";
-// import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
 
-const Home = () => {
-    const [myList, setMyList] = useState(
-        [
-            {
-                title: 'python从入门到放弃',
-                context: 'python学习笔记.........................................'
-            },
-            {
-                title: 'golang，从内存泄漏到死锁',
-                context: 'golang学习笔记..........................................'
-            },
-            {
-                title: '从高可用集群到宕机',
-                context: 'k8s学习笔记..........................................'
-            },
-            {
-                title: '从宕机到被脱库',
-                context: '网络安全学习笔记..........................................'
-            },
-        ]
-    )
+import axios from 'axios'
+import servicePath from "../config/apiUrl";
+import Link from "next/link";
+
+const MyList = (list) => {
+    const [myList, setMyList] = useState(list.data)
+    useEffect(() => {
+        setMyList(list.data)
+    })
 
     return (
         <div>
@@ -46,22 +33,23 @@ const Home = () => {
                             <Breadcrumb.Item><a href="/">视频</a></Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
-                    <List
-                        header={
-                            <div>最新日志</div>
-                        }
 
-                        itemLayout='vertical'
+                    <List
+                        itemLayout="vertical"
                         dataSource={myList}
                         renderItem={item => (
                             <List.Item>
-                                <div className='list-title'>{item.title}</div>
-                                <div className='list-icon'>
-                                    <span><Icon type="calendar"/> 2020-10-28</span>
-                                    <span><Icon type="folder"/> 视频教程</span>
-                                    <span><Icon type="fire"/> 5498人</span>
+                                <div className="list-title">
+                                    <Link href={{pathname: '/detailed', query: {id: item.id}}}>
+                                        <a>{item.title}</a>
+                                    </Link>
                                 </div>
-                                <div className='list--context'>{item.context}</div>
+                                <div className="list-icon">
+                                    <span><Icon type="calendar"/> {item.add_time}</span>
+                                    <span><Icon type="youtube"/> {item.typeName}</span>
+                                    <span><Icon type="fire"/> {item.view_count}人</span>
+                                </div>
+                                <div className="list-context">{item.introduce}</div>
                             </List.Item>
                         )}
                     />
@@ -79,5 +67,17 @@ const Home = () => {
     )
 }
 
-export default Home
+MyList.getInitialProps = async (context) => {
+    let id = context.query.id
+    const promise = new Promise((resolve) => {
+        axios(servicePath.getListById + id).then(
+            (res) => {
+                resolve(res.data)
+            }
+        )
+    })
+    return await promise
+}
+
+export default MyList
 
