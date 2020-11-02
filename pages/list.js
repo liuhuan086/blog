@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Ad";
 import Footer from "../components/Footer";
-
 import axios from 'axios'
 import servicePath from "../config/apiUrl";
 import Link from "next/link";
@@ -45,9 +44,9 @@ const MyList = (list) => {
                                     </Link>
                                 </div>
                                 <div className="list-icon">
-                                    <span><Icon type="calendar"/> {item.add_time}</span>
-                                    <span><Icon type="youtube"/> {item.typeName}</span>
-                                    <span><Icon type="fire"/> {item.view_count}人</span>
+                                    <span><Icon type="calendar"/>{item.add_time}</span>
+                                    <span><Icon type="youtube"/>{item.typeName}</span>
+                                    <span><Icon type="fire"/>{item.view_count}人</span>
                                 </div>
                                 <div className="list-context">{item.introduce}</div>
                             </List.Item>

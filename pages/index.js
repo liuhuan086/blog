@@ -1,18 +1,17 @@
 import Head from 'next/head'
 import React, {useState} from 'react'
-import {Row, Col, List} from "antd";
+import {Icon, Row, Col, List} from "antd";
 import Link from 'next/link'
 import axios from 'axios'
 import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Ad";
 import Footer from "../components/Footer";
-import '../static/style/pages/index.css'
-import {FieldTimeOutlined, FireOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import servicePath from "../config/apiUrl";
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
+import '../static/style/pages/index.css'
 
 
 const Home = (list) => {
@@ -66,12 +65,14 @@ const Home = (list) => {
                                 </div>
 
                                 <div className='list-icon'>
-                                    <span><FieldTimeOutlined/>{item.add_time}</span>
-                                    <span>< VideoCameraOutlined/>{item.typeName}</span>
-                                    <span><FireOutlined/>{item.view_count}</span>
+                                    <span><Icon type="calendar"/> {item.add_time}</span>
+                                    <span><Icon type="folder"/> {item.typeName}</span>
+                                    <span><Icon type="fire"/> {item.view_count}人</span>
                                 </div>
-                                <div className='list--context' dangerouslySetInnerHTML={{__html: item.introduce}}>
-
+                                <div
+                                    className='list--context'
+                                    dangerouslySetInnerHTML={{__html: marked(item.introduce)}}
+                                >
                                 </div>
                             </List.Item>
                         )}

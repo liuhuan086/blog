@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import {Row, Col, Breadcrumb, Affix} from "antd";
-import {FieldTimeOutlined, FolderOpenOutlined, ReadOutlined} from "@ant-design/icons";
+import {Icon, Row, Col, Breadcrumb, Affix} from "antd";
 import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Ad";
@@ -25,7 +24,7 @@ const Detailed = (props) => {
     // 使用marked必须要要用的
     const renderer = new marked.Renderer()
 
-    renderer.heading = function(text, level, raw){
+    renderer.heading = function (text, level, raw) {
         const anchor = tocify.add(text, level)
         return `<a id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`
     }
@@ -55,7 +54,7 @@ const Detailed = (props) => {
     return (
         <div>
             <Head>
-                <title>Detailed</title>
+                <title>{props.title}</title>
             </Head>
             <Header/>
             <Row className='comm-main' type='flex' justify='center'>
@@ -69,15 +68,15 @@ const Detailed = (props) => {
                             </Breadcrumb>
                         </div>
                         <div className='detailed-title'>
-                            React实战视频教程
+                            {props.title}
                         </div>
                         <div className='list-icon center'>
-                            <span><FieldTimeOutlined/>2020</span>
-                            <span><FolderOpenOutlined/>视频教程</span>
-                            <span><ReadOutlined/>666人</span>
+                            <span><Icon type="calendar"/>{props.add_time}</span>
+                            <span><Icon type="folder"/>{props.typeName}</span>
+                            <span><Icon type="fire"/>{props.view_count}</span>
                         </div>
                         <div className='detailed-content'
-                        dangerouslySetInnerHTML={{__html:html}}
+                             dangerouslySetInnerHTML={{__html: html}}
                         >
                         </div>
                     </div>
@@ -119,6 +118,8 @@ Detailed.getInitialProps = async (context) => {
             })
         )
     }))
+
+    console.log(promise)
     return await promise
 }
 
