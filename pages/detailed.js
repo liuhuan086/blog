@@ -68,7 +68,7 @@ const Detailed = (props) => {
                             </Breadcrumb>
                         </div>
                         <div className='detailed-title'>
-                            {props.title}
+                            <h1>{props.title}</h1>
                         </div>
                         <div className='list-icon center'>
                             <span><Icon type="calendar"/>{props.add_time}</span>
